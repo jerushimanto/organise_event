@@ -1,0 +1,142 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--
+      Site created by Brian Design on youtube @ www.youtube.com/channel/UCsKsymTY_4BYR-wytLjex7A?view_as=subscriber
+    -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML CSS Website</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Styling for the pop-up box */
+    .popup {
+        display: none;
+        background: #FFF;
+        width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    /* Styling for the close button */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#" id="navbar__logo"><i class="fas fa-gem"></i>ORGANISE</a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="{% url 'home' %}" class="navbar__links">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'upcoming' %}" class="navbar__links">Upcoming</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'schedule' %}" class="navbar__links">Schedule</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#" class="navbar_cur_links">Past</a>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+  <h1 style="margin-top: 20px; text-align:center; font-size: 48px;">Past Events</h1>
+  <section class="upcoming-events">
+    <ul>
+      {% for item in data %}
+          <div class="event">
+            <h2 style="font-size: 32px;">Event ID: {{item.id}}</h2><br>
+            <h2 style="font-size: 28px;">Event Name: {{item.name}}</h2><br>
+            <p>Date: {{item.date}}</p>
+            <p>Time: {{item.time}}</p><br>
+            <p>Hosted by: {{item.host}}</p><br>
+            <a href="#" onclick="openPopup({{item.id}})">Click to see participants</a>
+          </div>
+      {% endfor %}
+    </ul>
+    
+    <!-- Overlay and pop-up container -->
+    
+    <script>
+      var popupWindow;
+
+      function openPopup(itemId) {
+        // Open the pop-up in a new blank window
+        popupWindow = window.open('', '_blank', 'width=400,height=400');
+
+        // Add content to the pop-up
+        popupWindow.document.write('<html><head><title>Participants Details</title></head><body>');
+
+        // Fetch data list from Django based on item.id
+        fetch('/get_list_based_on_id/' + itemId + '/')
+            .then(response => response.json())
+            .then(data => {
+                
+                popupWindow.document.write('<div class="overlay" id="popup">');
+                popupWindow.document.write('<div class="popup">');
+                popupWindow.document.write('<span class="close" onclick="closePopup()">&times;</span>');
+                popupWindow.document.write('<h2>Total Participation:</h2>');
+                popupWindow.document.write('<h2>'+ data.data_list.length+'</h2>');
+                popupWindow.document.write('<h2>Email ID of participants</h2>');
+                popupWindow.document.write('<ul>');
+
+                // Display data list in a list
+                data.data_list.forEach(item => {
+                    popupWindow.document.write('<li>' + item + '</li>');
+                });
+
+                popupWindow.document.write('</ul>');
+                popupWindow.document.write('</div></div>');
+
+                popupWindow.document.write('</body></html>');
+
+                // Display the pop-up
+                popupWindow.document.getElementById("popup").style.display = "flex";
+            })
+            .catch(error => console.error('Error fetching data list:', error));
+    }
+
+    function closePopup() {
+        // Close the pop-up
+        popupWindow.close();
+    }
+</script>
+
+    <!-- Add more events as needed -->
+  </section>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--
+      Site created by Brian Design on youtube @ www.youtube.com/channel/UCsKsymTY_4BYR-wytLjex7A?view_as=subscriber
+    -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML CSS Website</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#" id="navbar__logo"><i class="fas fa-gem"></i>ORGANISE</a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="#" class="navbar_cur_links">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'upcoming' %}" class="navbar__links">Upcoming</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'schedule' %}" class="navbar__links">Schedule</a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'past' %}" class="navbar__links">Past</a>
+        </li>
+        
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="main">
+    <div class="main__container">
+      <div class="main__content">
+        <h1>NEXT GENERATION</h1>
+        <h2>TECHNOLOGY</h2>
+        <p>See what makes up different.</p>
+        
+      </div>
+      <div class="main__img--container">
+        <img id="main__img" src="{% static 'images/pic1.svg' %}" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Services Section -->
+  <div class="services">
+    <h1>Organise your event from anywhere</h1>
+    <div class="services__container">
+      <div class="services__card">
+        <img id="main__img" src="{% static 'images/pic3.jpg' %}" />
+        <h1><a href="{% url 'upcoming' %}" >Upcoming Events</a></h1>
+      </div>
+
+      <div class="services__card">
+        <div><img id="main__img" src="{% static 'images/pic2.jpg' %}" /></div>
+        <h1><a href="{% url 'schedule' %}" >Schedule An Event</a></h1>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

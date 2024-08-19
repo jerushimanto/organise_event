@@ -1,0 +1,81 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML CSS Website</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- <script>
+      function reg(){
+        var paragraphElement = document.getElementById("popup");
+      }
+    </script> -->
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar__container">
+        <a href="/" id="navbar__logo"><i class="fas fa-gem"></i>ORGANISE</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="{% url 'home' %}"class="navbar__links">Home</a>
+          </li>
+          <li class="navbar__item">
+            <a href="#" class="navbar_cur_links">Upcoming</a>
+          </li>
+          <li class="navbar__item">
+            <a href="{% url 'schedule' %}" class="navbar__links">Schedule</a>
+          </li>
+          <li class="navbar__item">
+            <a href="{% url 'past' %}" class="navbar__links">Past</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    <h1 style="margin-top: 20px; text-align:center; font-size: 48px;">Upcoming Meeting</h1>
+    
+    <!-- Upcoming Events Section -->
+    <section class="upcoming-events" >
+      <ul>
+        {% for item in data %}
+            <div class="event">
+              <h2 style="font-size: 32px;">Event ID: {{item.id}}</h2><br>
+              <h2 style="font-size: 28px;">Event Name: {{item.name}}</h2><br>
+              <p>Date: {{item.date}}</p>
+              <p>Time: {{item.time}}</p>
+              <p>Reg: {{item.registered}}</p>
+              <p>Details: {{item.details}}</p>
+              <p>host: {{item.host}}</p>
+              <form action="#" method="post" style="margin-top: -50px;">
+                {% csrf_token %}
+                  <input type="hidden" name="event_id" value="{{ item.id }}">
+                  <input type="email" name="email_id" style="margin: 5%; width:240px; height: 40px;" required>
+                  <input type="submit" value="Register" class="register-link" >
+              </form>
+
+              <p1 style="font-size: small;margin-top: -100px;">*Type your Mail id and press register to register for it</p1>
+            </div>
+      {% endfor %}
+      </ul>
+    </section>
+    
+  </body>
+</html>
+  </body>
+</html>
