@@ -1,0 +1,60 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML CSS Website</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar__container">
+        <a href="/" id="navbar__logo"><i class="fas fa-gem"></i>ORGANISE</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="{% url 'home' %}" class="navbar__links">Home</a>
+          </li>
+          <li class="navbar__item">
+            <a href="{% url 'upcoming' %}" class="navbar__links">Upcoming</a>
+          </li>
+          <li class="navbar__item">
+            <a href="#" class="navbar_cur_links">Schedule</a>
+          </li>
+          <li class="navbar__item">
+            <a href="{% url 'past' %}" class="navbar__links">Past</a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    <h1 style="margin-top: 20px; text-align:center; font-size: 64px;">Schedule Your Meeting</h1>
+    <section class="upcoming-events">
+      <div class="event">
+        <form action="#" method="post" style="align-content: center;">
+          {% csrf_token %}
+            <h2>Residential ID: <input type="text" name="id" style= 'width:300px; height: 40px; font-size: 18px;' required></h2><br>
+            <h2>Event name:  <input type="text" name="event" style= 'width:300px; height: 40px;' required></h2><br>
+            <h2>Event date: <input type="date" name="date" style= 'width:300px; height: 40px;' required></h2><br>
+            <h2>Event start time: <input type="time" name="time" style= 'width:300px; height: 40px;' required></h2><br>
+            <h2>Event details: <input type="text" name="dets" style= 'width:300px; height: 100px;'></h2><br>
+            <h2><input type="submit" value="Submit" class="register-link" style="align-content: center;"></h2>
+      </div>
+        </form>
+    </section>
+  </body>
+</html>
